@@ -1,0 +1,19 @@
+.header {
+  display: flex;
+  justify-content: center;
+}
+
+.header img {
+  width: 600px;
+  height: auto;
+}
+
+.descriptionBlock {
+  padding: 10px;
+}
+
+.descriptionBlock h1 {
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}

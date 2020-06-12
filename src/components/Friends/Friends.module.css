@@ -1,0 +1,25 @@
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+.list li {
+  margin: 5px;
+  color: white;
+  text-align: center;
+}
+
+.header {
+  color: gold;
+  margin-bottom: 0;
+  text-align: center;
+  font-size: 30px;
+}
+
+.friendIMG {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}

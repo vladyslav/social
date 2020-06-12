@@ -1,0 +1,23 @@
+.dialogs {
+  display: grid;
+  grid-template-columns: 2fr 10fr;
+}
+
+.dialogsItems {
+  padding: 10px;
+}
+
+.messages {
+  padding: 10px;
+  color: red;
+}
+
+.textarea {
+  display: block;
+  width: 100%;
+}
+
+.btn {
+  float: right;
+  width: 100px;
+}
