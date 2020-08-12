@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { FC } from 'react';
 import preloader from './../../../assets/images/preloader.svg';
 
-let Preloader = (props) => {
+type PropsType = {
+  props?: null;
+};
+
+const Preloader: FC<PropsType> = (props) => {
   return (
     <div style={{ backgroundColor: '#fff' }}>
       <img src={preloader} alt='' />

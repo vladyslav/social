@@ -1,4 +1,4 @@
-let initialState = {};
+const initialState = {};
 export type InitialStateType = typeof initialState;
 
 const sidebarReducer = (
