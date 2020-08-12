@@ -1,5 +1,11 @@
 import React from 'react';
-import { Route, withRouter, Switch, Redirect } from 'react-router-dom';
+import {
+  Route,
+  withRouter,
+  Switch,
+  Redirect,
+  HashRouter
+} from 'react-router-dom';
 import './App.css';
 import Music from './components/Music/Music';
 import Navbar from './components/Navbar/Navbar';
@@ -15,7 +21,6 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import Preloader from './components/common/preloader/Preloader';
 import store from './redux/redux-store';
-import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { withSuspense } from './components/hoc/withSuspense';
 
@@ -80,13 +85,13 @@ let AppContainer = compose(
   connect(mapStateToProps, { initializeApp })
 )(App);
 
-const MainApp = (props) => {
+const MainApp = () => {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Provider store={store}>
         <AppContainer />
       </Provider>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 
