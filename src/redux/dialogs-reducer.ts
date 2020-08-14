@@ -1,4 +1,4 @@
-import { InferActionsType } from './redux-store';
+import { InferActionsTypes } from './redux-store';
 
 type DialogType = { id: number; name: string };
 type MessageType = { id: number; message: string };
@@ -21,7 +21,7 @@ const initialState = {
 };
 
 export type InitialStateType = typeof initialState;
-type ActionsType = InferActionsType<typeof actions>;
+type ActionsType = InferActionsTypes<typeof actions>;
 
 const dialogsReducer = (
   state = initialState,

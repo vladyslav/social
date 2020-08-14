@@ -1,7 +1,7 @@
 import { usersAPI } from '../api/users-api';
 import { updateObjectInArray } from '../helpers/objects-helpers';
 import { UserType } from '../types/types';
-import { InferActionsType, BaseThunkType } from './redux-store';
+import { InferActionsTypes, BaseThunkType } from './redux-store';
 import { Dispatch } from 'redux';
 
 const initialState = {
@@ -53,7 +53,7 @@ const usersReducer = (
   }
 };
 
-type ActionsTypes = InferActionsType<typeof actions>;
+type ActionsTypes = InferActionsTypes<typeof actions>;
 
 export const actions = {
   followSuccess: (userId: number) =>

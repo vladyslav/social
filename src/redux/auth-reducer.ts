@@ -1,4 +1,4 @@
-import { BaseThunkType, InferActionsType } from './redux-store';
+import { BaseThunkType, InferActionsTypes } from './redux-store';
 import { ResultCodesEnum } from '../api/api';
 import { authAPI } from '../api/auth-api';
 import { securityAPI } from '../api/security-api';
@@ -31,7 +31,7 @@ const authReducer = (
   }
 };
 
-type ActionsType = InferActionsType<typeof actions>;
+type ActionsType = InferActionsTypes<typeof actions>;
 export const actions = {
   getCaptchaUrlSuccess: (captchaUrl: string) =>
     ({

@@ -1,10 +1,7 @@
 import React, { FC } from 'react';
 import s from './Settings.module.css';
 
-type PropsType = {
-  props: null;
-};
-const Settings: FC<PropsType> = (props) => {
+const Settings: FC = () => {
   return (
     <div>
       <h1 className={s.header}>Settings</h1>

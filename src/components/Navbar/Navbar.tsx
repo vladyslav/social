@@ -1,13 +1,8 @@
 import React, { FC } from 'react';
 import s from './Navbar.module.css';
 import { NavLink } from 'react-router-dom';
-// import Friends from '../Friends/Friends';
 
-type PropsType = {
-  props: null;
-};
-
-const Navbar: FC<PropsType> = (props) => {
+const Navbar: FC = () => {
   return (
     <nav className={s.nav}>
       <div className={s.item}>
@@ -40,7 +35,6 @@ const Navbar: FC<PropsType> = (props) => {
           Settings
         </NavLink>
       </div>
-      {/* <Friends friends={props.store.sidebar.friends} /> */}
     </nav>
   );
 };

@@ -1,7 +1,7 @@
 import { PostType, ProfileType, PhotosType } from './../types/types';
 import { profileAPI } from '../api/profile-api';
 import { stopSubmit, FormAction } from 'redux-form';
-import { InferActionsType, BaseThunkType } from './redux-store';
+import { InferActionsTypes, BaseThunkType } from './redux-store';
 
 export type InitialStateType = typeof initialState;
 const initialState = {
@@ -10,8 +10,7 @@ const initialState = {
     { id: 2, message: 'It`s my first post', likes: 15 }
   ] as Array<PostType>,
   profile: null as ProfileType | null,
-  status: '',
-  newPostText: ''
+  status: ''
 };
 
 const profileReducer = (
@@ -21,7 +20,7 @@ const profileReducer = (
   switch (action.type) {
     case 'SN/PROFILE/ADD_POST':
       const newPost = { id: 5, message: action.newPostText, likes: 0 };
-      return { ...state, newPostText: '', posts: [...state.posts, newPost] };
+      return { ...state, posts: [...state.posts, newPost] };
     case 'SN/PROFILE/SET_USER_PROFILE':
       return { ...state, profile: action.profile };
     case 'SN/PROFILE/SET_STATUS':
@@ -41,7 +40,7 @@ const profileReducer = (
   }
 };
 
-type ActionsTypes = InferActionsType<typeof actions>;
+type ActionsTypes = InferActionsTypes<typeof actions>;
 type ThunkType = BaseThunkType<ActionsTypes | FormAction>;
 
 export const actions = {
