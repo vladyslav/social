@@ -6,7 +6,7 @@ import {
   GetStringKeys
 } from '../common/FormsControl/FormsControl';
 import { required } from '../../helpers/validators';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { login } from '../../redux/auth-reducer';
 import { Redirect } from 'react-router-dom';
 import s from '../common/FormsControl/FormsControl.module.css';
@@ -58,20 +58,6 @@ const LoginReduxForm = reduxForm<LoginFormValuesType, LoginFormOwnProps>({
   form: 'login'
 })(LoginForm);
 
-type MapStatePropsType = {
-  captchaUrl: string | null;
-  isAuth: boolean;
-};
-
-type MapDispatchPropsType = {
-  login: (
-    email: string,
-    password: string,
-    rememberMe: boolean,
-    captcha: string
-  ) => void;
-};
-
 export type LoginFormValuesType = {
   email: string;
   password: string;
@@ -81,23 +67,27 @@ export type LoginFormValuesType = {
 
 type LoginFormValuesTypeKeys = GetStringKeys<LoginFormValuesType>;
 
-const Login: FC<MapStatePropsType & MapDispatchPropsType> = ({
-  isAuth,
-  captchaUrl,
-  login
-}) => {
+export const LoginPage: FC = () => {
+  const captchaUrl = useSelector(
+    (state: AppStateType) => state.auth.captchaUrl
+  );
+  const isAuth = useSelector((state: AppStateType) => state.auth.isAuth);
+
+  const dispatch = useDispatch();
+
   const onSubmit = (formData: LoginFormValuesType) => {
-    login(
-      formData.email,
-      formData.password,
-      formData.rememberMe,
-      formData.captcha
+    dispatch(
+      login(
+        formData.email,
+        formData.password,
+        formData.rememberMe,
+        formData.captcha
+      )
     );
   };
 
-  if (isAuth) {
-    return <Redirect to={'/profile'} />;
-  }
+  if (isAuth) return <Redirect to={'/profile'} />;
+
   return (
     <div>
       <h1>Login</h1>
@@ -105,10 +95,3 @@ const Login: FC<MapStatePropsType & MapDispatchPropsType> = ({
     </div>
   );
 };
-
-const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
-  isAuth: state.auth.isAuth,
-  captchaUrl: state.auth.captchaUrl
-});
-
-export default connect(mapStateToProps, { login })(Login);

@@ -20,7 +20,7 @@ const FormControl: FC<FormControlPropsType> = ({
   );
 };
 
-export const Textarea: FC<WrappedFieldProps> = (props) => {
+export const Textarea: FC<WrappedFieldProps> = props => {
   // const { input, meta, child, ...restprops } = props;
   const { input, meta, ...restprops } = props;
   return (
@@ -30,7 +30,7 @@ export const Textarea: FC<WrappedFieldProps> = (props) => {
   );
 };
 
-export const Input: FC<WrappedFieldProps> = (props) => {
+export const Input: FC<WrappedFieldProps> = props => {
   // const { input, meta, child, ...restprops } = props;
   const { input, meta, ...restprops } = props;
   return (

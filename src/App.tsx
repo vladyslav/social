@@ -12,10 +12,10 @@ import Navbar from './components/Navbar/Navbar';
 import News from './components/News/News';
 import Settings from './components/Settings/Settings';
 // import DialogsContainer from './components/Dialogs/DialogsContainer';
-import UsersContainer from './components/Users/UsersContainer';
+import { UsersPage } from './components/Users/UsersPage';
 // import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
-import Login from './components/Login/Login';
+import { LoginPage } from './components/Login/LoginPage';
 import { initializeApp } from './redux/app-reducer';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -24,11 +24,11 @@ import store, { AppStateType } from './redux/redux-store';
 import { Provider } from 'react-redux';
 import { withSuspense } from './components/hoc/withSuspense';
 
-const DialogsContainer = React.lazy(() =>
-  import('./components/Dialogs/DialogsContainer')
+const DialogsContainer = React.lazy(
+  () => import('./components/Dialogs/DialogsContainer')
 );
-const ProfileContainer = React.lazy(() =>
-  import('./components/Profile/ProfileContainer')
+const ProfileContainer = React.lazy(
+  () => import('./components/Profile/ProfileContainer')
 );
 
 type MapPropsType = ReturnType<typeof mapStateToProps>;
@@ -69,9 +69,9 @@ class App extends Component<MapPropsType & DispatchPropsType> {
             />
             <Route
               path='/users'
-              render={() => <UsersContainer pageTitle={'Samurai'} />}
+              render={() => <UsersPage pageTitle={'Samurai'} />}
             />
-            <Route path='/login' render={() => <Login />} />
+            <Route path='/login' render={() => <LoginPage />} />
             <Route path='/news' render={() => <News />} />
             <Route path='/music' render={() => <Music />} />
             <Route path='/settings' render={() => <Settings />} />

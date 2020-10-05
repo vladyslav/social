@@ -28,7 +28,7 @@ const profileReducer = (
     case 'SN/PROFILE/DELETE_POST':
       return {
         ...state,
-        posts: state.posts.filter((p) => p.id !== action.postId)
+        posts: state.posts.filter(p => p.id !== action.postId)
       };
     case 'SN/PROFILE/SAVE_PHOTO_SUCCESS':
       return {
@@ -56,24 +56,22 @@ export const actions = {
     ({ type: 'SN/PROFILE/SAVE_PHOTO_SUCCESS', photos } as const)
 };
 
-export const getUserProfile = (userId: number): ThunkType => async (
-  dispatch
-) => {
+export const getUserProfile = (userId: number): ThunkType => async dispatch => {
   const data = await profileAPI.getProfile(userId);
   dispatch(actions.setUserProfile(data));
 };
 
-export const getStatus = (userId: number): ThunkType => async (dispatch) => {
+export const getStatus = (userId: number): ThunkType => async dispatch => {
   const data = await profileAPI.getStatus(userId);
   dispatch(actions.setStatus(data));
 };
 
-export const updateStatus = (status: string): ThunkType => async (dispatch) => {
+export const updateStatus = (status: string): ThunkType => async dispatch => {
   const data = await profileAPI.updateStatus(status);
   if (data.resultCode === 0) dispatch(actions.setStatus(status));
 };
 
-export const savePhoto = (file: File): ThunkType => async (dispatch) => {
+export const savePhoto = (file: File): ThunkType => async dispatch => {
   const data = await profileAPI.savePhoto(file);
   if (data.resultCode === 0)
     dispatch(actions.savePhotoSuccess(data.data.photos));

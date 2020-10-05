@@ -54,7 +54,7 @@ const usersReducer = (
         ...state,
         followingInProgress: action.isFetching
           ? [...state.followingInProgress, action.userId]
-          : state.followingInProgress.filter((id) => id !== action.userId)
+          : state.followingInProgress.filter(id => id !== action.userId)
       };
     default:
       return state;
@@ -101,7 +101,7 @@ export const requestUsers = (
   page: number,
   pageSize: number,
   filter: FilterType
-): ThunkType => async (dispatch) => {
+): ThunkType => async dispatch => {
   dispatch(actions.toggleIsFetching(true));
   dispatch(actions.setCurrentPage(page));
   dispatch(actions.setFilter(filter));
@@ -129,7 +129,7 @@ const _followUnfollow = async (
   dispatch(actions.toggleFollowingProgress(false, userId));
 };
 
-export const follow = (userId: number): ThunkType => async (dispatch) => {
+export const follow = (userId: number): ThunkType => async dispatch => {
   await _followUnfollow(
     dispatch,
     userId,
@@ -138,7 +138,7 @@ export const follow = (userId: number): ThunkType => async (dispatch) => {
   );
 };
 
-export const unfollow = (userId: number): ThunkType => async (dispatch) => {
+export const unfollow = (userId: number): ThunkType => async dispatch => {
   await _followUnfollow(
     dispatch,
     userId,

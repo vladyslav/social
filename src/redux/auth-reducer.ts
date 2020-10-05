@@ -51,7 +51,7 @@ export const actions = {
     } as const)
 };
 
-export const getAuthUserData = (): ThunkType => async (dispatch) => {
+export const getAuthUserData = (): ThunkType => async dispatch => {
   const meData = await authAPI.me();
   if (meData.resultCode === ResultCodesEnum.Success) {
     const { id, email, login } = meData.data;
@@ -64,7 +64,7 @@ export const login = (
   password: string,
   rememberMe: boolean,
   captcha: string
-): ThunkType => async (dispatch) => {
+): ThunkType => async dispatch => {
   const data = await authAPI.login(email, password, rememberMe, captcha);
   if (data.resultCode === ResultCodesEnum.Success) {
     dispatch(getAuthUserData());
@@ -77,13 +77,13 @@ export const login = (
   }
 };
 
-export const getCaptchaUrl = (): ThunkType => async (dispatch) => {
+export const getCaptchaUrl = (): ThunkType => async dispatch => {
   const data = await securityAPI.getCaptchaUrl();
   const captchaUrl = data.url;
   dispatch(actions.getCaptchaUrlSuccess(captchaUrl));
 };
 
-export const logout = (): ThunkType => async (dispatch) => {
+export const logout = (): ThunkType => async dispatch => {
   const response = await authAPI.logout();
   if (response.data.resultCode === 0) {
     dispatch(actions.setAuthUserData(null, null, null, false));
