@@ -1,19 +1,19 @@
-import React, { FC, useEffect } from "react";
-import Paginator from "../common/Paginator/Paginator";
-import User from "./User";
-import { UsersSearchForm } from "./UsersSearchForm";
-import { FilterType, requestUsers } from "../../redux/users-reducer";
-import { useSelector, useDispatch } from "react-redux";
+import React, { FC, useEffect } from 'react';
+import Paginator from '../common/Paginator/Paginator';
+import User from './User';
+import { UsersSearchForm } from './UsersSearchForm';
+import { FilterType, requestUsers } from '../../redux/users-reducer';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   getTotalUsersCount,
   getCurrentPage,
   getPageSize,
   getUsersFilter,
   getUsers,
-  getFollowingInProgress,
-} from "../../redux/users-selectors";
-import { useHistory } from "react-router-dom";
-import * as queryString from "querystring";
+  getFollowingInProgress
+} from '../../redux/users-selectors';
+import { useHistory } from 'react-router-dom';
+import * as queryString from 'querystring';
 
 type QueryParamsType = {
   term?: string;
@@ -45,13 +45,13 @@ export const Users: FC = () => {
       actualFilter = { ...actualFilter, term: parsed.term as string };
 
     switch (parsed.friend) {
-      case "null":
+      case 'null':
         actualFilter = { ...actualFilter, friend: null };
         break;
-      case "true":
+      case 'true':
         actualFilter = { ...actualFilter, friend: true };
         break;
-      case "false":
+      case 'false':
         actualFilter = { ...actualFilter, friend: false };
         break;
     }
@@ -66,8 +66,8 @@ export const Users: FC = () => {
     if (filter.friend !== null) query.friend = String(filter.friend);
     if (currentPage !== 1) query.page = String(currentPage);
     history.push({
-      pathname: "/developers",
-      search: queryString.stringify(query),
+      pathname: '/developers',
+      search: queryString.stringify(query)
     });
   }, [filter, currentPage]);
 
@@ -93,7 +93,7 @@ export const Users: FC = () => {
         totalItemsCount={totalUsersCount}
         pageSize={pageSize}
       />
-      {users.map((u) => (
+      {users.map(u => (
         <User
           user={u}
           followingInProgress={followingInProgress}
