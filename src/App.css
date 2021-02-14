@@ -1,3 +1,5 @@
+@import "~antd/dist/antd.css";
+
 .app-wrapper {
   display: grid;
   width: 1200px;
@@ -14,4 +16,20 @@
 .app-wrapper-content {
   grid-area: c;
   background-color: lightgray;
+}
+
+#components-layout-demo-side .logo {
+  height: 32px;
+  margin: 16px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.site-layout .site-layout-background {
+  background: #fff;
+}
+
+.nav {
+  grid-area: n;
+  background-color: brown;
+  padding: 20px;
 }

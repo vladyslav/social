@@ -1,34 +1,45 @@
-import React, { FC, ComponentType, Component } from 'react';
+import React, { FC, ComponentType, Component } from "react";
 import {
   Route,
   withRouter,
   Switch,
   Redirect,
-  HashRouter
-} from 'react-router-dom';
-import './App.css';
-import Music from './components/Music/Music';
-import Navbar from './components/Navbar/Navbar';
-import News from './components/News/News';
-import Settings from './components/Settings/Settings';
+  BrowserRouter,
+  Link,
+} from "react-router-dom";
+import "./App.css";
+import Music from "./components/Music/Music";
+import News from "./components/News/News";
+import Settings from "./components/Settings/Settings";
 // import DialogsContainer from './components/Dialogs/DialogsContainer';
-import { UsersPage } from './components/Users/UsersPage';
+import { UsersPage } from "./components/Users/UsersPage";
 // import ProfileContainer from './components/Profile/ProfileContainer';
-import HeaderContainer from './components/Header/HeaderContainer';
-import { LoginPage } from './components/Login/LoginPage';
-import { initializeApp } from './redux/app-reducer';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
-import Preloader from './components/common/preloader/Preloader';
-import store, { AppStateType } from './redux/redux-store';
-import { Provider } from 'react-redux';
-import { withSuspense } from './components/hoc/withSuspense';
+import { LoginPage } from "./components/Login/LoginPage";
+import { initializeApp } from "./redux/app-reducer";
+import { connect } from "react-redux";
+import { compose } from "redux";
+import Preloader from "./components/common/preloader/Preloader";
+import store, { AppStateType } from "./redux/redux-store";
+import { Provider } from "react-redux";
+import { withSuspense } from "./components/hoc/withSuspense";
+import { Layout, Menu, Breadcrumb } from "antd";
+import {
+  TeamOutlined,
+  ProfileOutlined,
+  MessageOutlined,
+  NotificationOutlined,
+  SoundOutlined,
+  SettingOutlined,
+} from "@ant-design/icons";
+import { AppHeader } from "./components/Header/Header";
+
+const { Content, Footer, Sider } = Layout;
 
 const DialogsContainer = React.lazy(
-  () => import('./components/Dialogs/DialogsContainer')
+  () => import("./components/Dialogs/DialogsContainer")
 );
 const ProfileContainer = React.lazy(
-  () => import('./components/Profile/ProfileContainer')
+  () => import("./components/Profile/ProfileContainer")
 );
 
 type MapPropsType = ReturnType<typeof mapStateToProps>;
@@ -38,16 +49,25 @@ const SuspendedDialogs = withSuspense(DialogsContainer);
 const SuspendedProfile = withSuspense(ProfileContainer);
 
 class App extends Component<MapPropsType & DispatchPropsType> {
+  state = {
+    collapsed: false,
+  };
+
+  onCollapse = (collapsed: any) => {
+    console.log(collapsed);
+    this.setState({ collapsed });
+  };
+
   catchAllUnhandledErrors = (e: PromiseRejectionEvent) => {
-    alert('Some error occured');
+    alert("Some error occured");
   };
   componentDidMount() {
     this.props.initializeApp();
-    window.addEventListener('unhandledrejection', this.catchAllUnhandledErrors);
+    window.addEventListener("unhandledrejection", this.catchAllUnhandledErrors);
   }
   componentWillUnmount() {
     window.removeEventListener(
-      'unhandledrejection',
+      "unhandledrejection",
       this.catchAllUnhandledErrors
     );
   }
@@ -55,36 +75,77 @@ class App extends Component<MapPropsType & DispatchPropsType> {
     if (!this.props.initialized) {
       return <Preloader />;
     }
+    const { collapsed } = this.state;
     return (
-      <div className='app-wrapper'>
-        <HeaderContainer />
-        <Navbar />
-        <div className='app-wrapper-content'>
-          <Switch>
-            <Route exact path='/' render={() => <Redirect to={'/profile'} />} />
-            <Route path='/dialogs' render={() => <SuspendedDialogs />} />
-            <Route
-              path='/profile/:userId?'
-              render={() => <SuspendedProfile />}
-            />
-            <Route
-              path='/users'
-              render={() => <UsersPage pageTitle={'Samurai'} />}
-            />
-            <Route path='/login' render={() => <LoginPage />} />
-            <Route path='/news' render={() => <News />} />
-            <Route path='/music' render={() => <Music />} />
-            <Route path='/settings' render={() => <Settings />} />
-            <Route path='*' render={() => <div>404 NOT FOUND</div>} />
-          </Switch>
-        </div>
-      </div>
+      <Layout style={{ minHeight: "100vh" }}>
+        <Sider collapsible collapsed={collapsed} onCollapse={this.onCollapse}>
+          <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
+            <Menu.Item key="1" icon={<ProfileOutlined />}>
+              <Link to="/profile">Profile</Link>
+            </Menu.Item>
+            <Menu.Item key="2" icon={<MessageOutlined />}>
+              <Link to="/messages">Messages</Link>
+            </Menu.Item>
+            <Menu.Item key="3" icon={<TeamOutlined />}>
+              <Link to="/developers">Developers</Link>
+            </Menu.Item>
+            <Menu.Item key="4" icon={<NotificationOutlined />}>
+              <Link to="/news">News</Link>
+            </Menu.Item>
+            <Menu.Item key="5" icon={<SoundOutlined />}>
+              <Link to="/music">Music</Link>
+            </Menu.Item>
+            <Menu.Item key="6" icon={<SettingOutlined />}>
+              <Link to="/settings">Settings</Link>
+            </Menu.Item>
+          </Menu>
+        </Sider>
+        <Layout className="site-layout">
+          <AppHeader />
+
+          <Content style={{ margin: "0 16px" }}>
+            <Breadcrumb style={{ margin: "16px 0" }}>
+              <Breadcrumb.Item>User</Breadcrumb.Item>
+              <Breadcrumb.Item>Bill</Breadcrumb.Item>
+            </Breadcrumb>
+            <div
+              className="site-layout-background app-wrapper-content"
+              style={{ padding: 24, minHeight: 360 }}
+            >
+              <Switch>
+                <Route
+                  exact
+                  path="/"
+                  render={() => <Redirect to={"/profile"} />}
+                />
+                <Route path="/messages" render={() => <SuspendedDialogs />} />
+                <Route
+                  path="/profile/:userId?"
+                  render={() => <SuspendedProfile />}
+                />
+                <Route
+                  path="/developers"
+                  render={() => <UsersPage pageTitle={"Samurai"} />}
+                />
+                <Route path="/login" render={() => <LoginPage />} />
+                <Route path="/news" render={() => <News />} />
+                <Route path="/music" render={() => <Music />} />
+                <Route path="/settings" render={() => <Settings />} />
+                <Route path="*" render={() => <div>404 NOT FOUND</div>} />
+              </Switch>
+            </div>
+          </Content>
+          <Footer style={{ textAlign: "center" }}>
+            NotFacebook ©2021 Created by Vladyslav Vasylenko
+          </Footer>
+        </Layout>
+      </Layout>
     );
   }
 }
 
 const mapStateToProps = (state: AppStateType) => ({
-  initialized: state.app.initialized
+  initialized: state.app.initialized,
 });
 
 const AppContainer = compose<ComponentType>(
@@ -94,11 +155,11 @@ const AppContainer = compose<ComponentType>(
 
 const MainApp: FC = () => {
   return (
-    <HashRouter>
+    <BrowserRouter>
       <Provider store={store}>
         <AppContainer />
       </Provider>
-    </HashRouter>
+    </BrowserRouter>
   );
 };
 
