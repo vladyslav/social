@@ -21,19 +21,19 @@ export const AppHeader: FC = () => {
   const logoutCallback = () => dispatch(logout());
 
   return (
-    <Header className="site-layout-background" style={{ padding: 0 }}>
-      <Row>
-        <Col span={20}>
+    <Header className="header-header" style={{ height: 45, lineHeight: 45}}>
+      <Row style={{ height: 45 }}>
+        <Col style={{ height: 45 }} span={20}>
           <div className={s.header}>
             <h1>
               Not<span>Facebook</span>
             </h1>
           </div>
         </Col>
-        <Col span={4}>
-          <div className={s.loginBlock}>
+        <Col style={{ height: 45 }} span={4}>
+          <div style={{ height: 45 }} className={s.loginBlock}>
             {isAuth ? (
-              <div>
+              <div style={{ height: 45 }}>
                 <Avatar alt={login || ""} icon={<UserOutlined />} />
                 <Button onClick={logoutCallback}>Log Out</Button>
               </div>

@@ -100,18 +100,10 @@ class App extends Component<MapPropsType & DispatchPropsType> {
             </Menu.Item>
           </Menu>
         </Sider>
-        <Layout className="site-layout">
+        <Layout>
           <AppHeader />
-
-          <Content style={{ margin: "0 16px" }}>
-            <Breadcrumb style={{ margin: "16px 0" }}>
-              <Breadcrumb.Item>User</Breadcrumb.Item>
-              <Breadcrumb.Item>Bill</Breadcrumb.Item>
-            </Breadcrumb>
-            <div
-              className="site-layout-background app-wrapper-content"
-              style={{ padding: 24, minHeight: 360 }}
-            >
+          <Content>
+            <div style={{ padding: 24, minHeight: 360 }}>
               <Switch>
                 <Route
                   exact
