@@ -1,10 +1,11 @@
-import React, { useState, FC, ChangeEvent } from 'react';
+import { useState, FC, ChangeEvent } from 'react';
 import s from './ProfileInfo.module.css';
 import Preloader from '../../common/preloader/Preloader';
 import ProfileStatusWithHooks from './ProfileStatusWithHooks';
 import userPhoto from '../../../assets/images/user.png';
 import ProfileDataForm from './ProfileDataForm';
 import { ProfileType, ContactsType } from '../../../types/types';
+import { Button } from 'antd';
 
 type PropsType = {
   profile: ProfileType | null;
@@ -44,7 +45,7 @@ const ProfileInfo: FC<PropsType> = ({
   return (
     <div>
       <div className={s.descriptionBlock}>
-        <img src={profile.photos.large || userPhoto} alt=''></img>
+        <img src={profile.photos.large || userPhoto} alt='' style={{width: "150px"}}></img>
         {isOwner && (
           <input type={'file'} onChange={onMainPhotoSelected}></input>
         )}
@@ -84,7 +85,7 @@ const ProfileData: FC<ProfileDataPropsType> = ({
     <div>
       {isOwner && (
         <div>
-          <button onClick={goToEditMode}>edit</button>
+          <Button onClick={goToEditMode}>edit</Button>
         </div>
       )}
       <div>

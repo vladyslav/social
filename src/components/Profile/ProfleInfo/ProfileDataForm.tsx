@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import {
   createField,
   Input,
@@ -9,6 +9,7 @@ import { reduxForm, InjectedFormProps } from 'redux-form';
 import s from './ProfileInfo.module.css';
 import sq from '../../common/FormsControl/FormsControl.module.css';
 import { ProfileType } from '../../../types/types';
+import { Button } from 'antd';
 
 type PropsType = {
   profile: ProfileType;
@@ -21,7 +22,7 @@ const ProfileDataForm: FC<
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <button>save</button>
+        <Button>Save</Button>
       </div>
       {error && <div className={sq.formSummaryError}>{error}</div>}
       <div>
